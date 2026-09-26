@@ -1,0 +1,238 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { mockEventDetails } from "@/app/home-data";
+import { Header } from "@/components/layout/Header";
+import { ProfileHeader } from "@/components/profile/ProfileHeader";
+import { ProfileMenuItem } from "@/components/profile/ProfileMenuItem";
+import { ProfileSection } from "@/components/profile/ProfileSection";
+import { ProfileStats } from "@/components/profile/ProfileStats";
+import { getMockUser, saveMockUser } from "@/lib/mock-api";
+import { mockUser } from "@/lib/mock-account";
+import {
+  IconChevronRight,
+  IconFileText,
+  IconHeart,
+  IconInfo,
+  IconLock2,
+  IconQuestionCircle,
+  IconShield,
+  IconUser,
+} from "@/components/ui/Icons";
+
+export default function ProfilePage() {
+  const [user, setUser] = useState(mockUser);
+  const [editing, setEditing] = useState(false);
+  const [notifications, setNotifications] = useState(true);
+  useEffect(() => {
+    const storedUser = getMockUser();
+    const storedNotifications =
+      window.localStorage.getItem("zordr-mock-notifications") !== "false";
+    window.setTimeout(() => {
+      setUser(storedUser);
+      setNotifications(storedNotifications);
+    }, 0);
+  }, []);
+  return (
+    <main className="mx-auto min-h-screen max-w-[600px] bg-white pb-6 shadow-sm">
+      <Header showBack />
+      <div className="px-4 pt-5 sm:px-6">
+        <h1 className="text-[25px] font-extrabold text-[#10183a]">Profile</h1>
+        <p className="mt-1 text-[15px] text-[#5d6a85]">
+          Manage your account and preferences.
+        </p>
+      </div>
+      <ProfileHeader
+        user={user}
+        compact
+        editing={editing}
+        onEdit={() => {
+          if (editing) saveMockUser(user);
+          setEditing((current) => !current);
+        }}
+      >
+        <div className="mt-3 grid gap-2">
+          <input
+            value={user.name}
+            onChange={(event) =>
+              setUser((current) => ({ ...current, name: event.target.value }))
+            }
+            className="h-9 rounded-md border border-[#bfe8d4] bg-white px-3 text-sm outline-none"
+          />
+          <input
+            value={user.email}
+            readOnly
+            aria-label="Email address cannot be changed"
+            className="h-9 rounded-md border border-[#dfe5eb] bg-[#f5f7fa] px-3 text-sm text-[#65718a] outline-none"
+          />
+          <input
+            value={user.phone}
+            readOnly
+            aria-label="Phone number cannot be changed"
+            className="h-9 rounded-md border border-[#dfe5eb] bg-[#f5f7fa] px-3 text-sm text-[#65718a] outline-none"
+          />
+          <p className="text-[10px] text-[#65718a]">
+            Email and phone are fixed to this mock account.
+          </p>
+        </div>
+      </ProfileHeader>
+      <ProfileStats stats={user.stats} compact />
+      <ProfileEvents
+        title="Liked Events"
+        emptyText="Like an event to see it here."
+        eventIds={user.likedEventIds ?? []}
+      />
+      <ProfileEvents
+        title="Attended Events"
+        emptyText="Your purchased event history will appear here."
+        eventIds={user.attendedEventIds ?? []}
+      />
+      <ProfileSection title="Account" compact>
+        <ProfileMenuItem
+          compact
+          icon={<IconUser size={20} />}
+          label="Personal Information"
+          description="Name, email, phone, college details"
+        />
+        <ProfileMenuItem
+          compact
+          icon={<IconLock2 size={20} />}
+          label="Change Password"
+          description="Update your password"
+        />
+        <ProfileMenuItem
+          compact
+          icon={<span className="text-xl">↗</span>}
+          label="Linked Accounts"
+          description="Manage connected accounts"
+        />
+      </ProfileSection>
+      <ProfileSection title="Preferences" compact>
+        <ProfileMenuItem
+          compact
+          icon={<IconInfo size={20} />}
+          label="Notifications"
+          description="Event updates, offers and reminders"
+          trailing={
+            <button
+              onClick={() =>
+                setNotifications((current) => {
+                  const next = !current;
+                  window.localStorage.setItem(
+                    "zordr-mock-notifications",
+                    String(next),
+                  );
+                  return next;
+                })
+              }
+              aria-label="Toggle notifications"
+              className={`h-5 w-9 rounded-full p-0.5 ${notifications ? "bg-[#0aae6b]" : "bg-[#cbd3de]"}`}
+            >
+              <span
+                className={`block h-4 w-4 rounded-full bg-white transition-transform ${notifications ? "translate-x-4" : "translate-x-0"}`}
+              />
+            </button>
+          }
+        />
+        <ProfileMenuItem
+          compact
+          icon={<IconHeart size={20} />}
+          label="Interests"
+          description="Events you're interested in"
+        />
+        <ProfileMenuItem
+          compact
+          icon={<span className="text-xl">◎</span>}
+          label="Language"
+          description="App language and communication"
+        />
+      </ProfileSection>
+      <ProfileSection title="Support" compact>
+        <ProfileMenuItem
+          compact
+          icon={<IconQuestionCircle size={20} />}
+          label="Help & Support"
+          description="Get help or contact us"
+        />
+        <ProfileMenuItem
+          compact
+          icon={<IconFileText size={20} />}
+          label="Terms & Conditions"
+          description="Read our terms and policies"
+        />
+        <ProfileMenuItem
+          compact
+          icon={<IconShield size={20} />}
+          label="Privacy Policy"
+          description="Learn how we protect your data"
+        />
+      </ProfileSection>
+      <div className="mx-4 mt-4 sm:mx-6">
+        <button
+          type="button"
+          className="h-11 w-full rounded-lg border border-[#f0b8c0] bg-white text-[13px] font-semibold text-[#c53549]"
+        >
+          Log Out
+        </button>
+      </div>
+    </main>
+  );
+}
+
+function ProfileEvents({
+  title,
+  emptyText,
+  eventIds,
+}: {
+  title: string;
+  emptyText: string;
+  eventIds: string[];
+}) {
+  const events = eventIds
+    .map((id) => mockEventDetails.find((event) => event.id === id))
+    .filter((event): event is (typeof mockEventDetails)[number] =>
+      Boolean(event),
+    );
+  return (
+    <section className="mx-4 mt-3 rounded-[10px] border border-[#e1e6ec] p-3 sm:mx-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-[16px] font-bold text-[#17203b]">{title}</h2>
+        <span className="text-[11px] text-[#65718a]">{events.length}</span>
+      </div>
+      {events.length ? (
+        <div className="mt-2 space-y-2">
+          {events.map((event) => (
+            <Link
+              key={event.id}
+              href={`/events/${event.slug}`}
+              className="flex items-center gap-3 rounded-lg bg-[#f7fafc] p-2"
+            >
+              <img
+                src={event.bannerUrl}
+                alt={event.name}
+                className="h-12 w-16 rounded-md object-cover"
+              />
+              <span className="min-w-0">
+                <b className="block truncate text-[12px] text-[#17203b]">
+                  {event.name}
+                </b>
+                <span className="text-[10px] text-[#65718a]">
+                  {event.category.join(" • ")}
+                </span>
+              </span>
+              <IconChevronRight
+                size={16}
+                className="ml-auto shrink-0 text-[#17203b]"
+              />
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <p className="mt-2 rounded-lg bg-[#f7fafc] px-3 py-3 text-[11px] text-[#65718a]">
+          {emptyText}
+        </p>
+      )}
+    </section>
+  );
+}
