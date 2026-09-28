@@ -47,7 +47,7 @@ export default function NotFound() {
               Try searching for events, venues or categories.
             </p>
             <Link
-              href="/"
+              href="/events"
               className="mt-2 inline-block text-[12px] font-bold text-[#0a9960]"
             >
               Search Events →

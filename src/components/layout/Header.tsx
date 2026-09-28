@@ -44,7 +44,8 @@ export function Header({ showBack = false }: HeaderProps) {
             className="flex flex-col leading-none"
           >
             <span className="text-[22px] font-extrabold leading-5 tracking-[-0.8px] text-[var(--color-dark)]">
-              <span className="text-[var(--color-primary)]">Z</span>ordr
+              <span className="text-[var(--color-primary)]">Z</span>
+              ordr
             </span>
 
             <span className="mt-0.5 text-[7px] font-medium leading-[8px] text-[var(--color-muted)]">
@@ -64,6 +65,17 @@ export function Header({ showBack = false }: HeaderProps) {
             }`}
           >
             Home
+          </Link>
+
+          <Link
+            href="/events"
+            className={`text-sm font-medium ${
+              isActive("/events")
+                ? "text-[var(--color-primary)]"
+                : "text-[var(--color-muted)]"
+            }`}
+          >
+            Explore
           </Link>
 
           <Link
@@ -99,17 +111,26 @@ export function Header({ showBack = false }: HeaderProps) {
         >
           <span className="flex flex-col gap-[4px]">
             <span
-              className={`h-[1.5px] w-[18px] bg-current transition-transform ${menuOpen ? "translate-y-[5.5px] rotate-45" : ""}`}
+              className={`h-[1.5px] w-[18px] bg-current transition-transform ${
+                menuOpen ? "translate-y-[5.5px] rotate-45" : ""
+              }`}
             />
+
             <span
-              className={`h-[1.5px] w-[18px] bg-current transition-opacity ${menuOpen ? "opacity-0" : ""}`}
+              className={`h-[1.5px] w-[18px] bg-current transition-opacity ${
+                menuOpen ? "opacity-0" : ""
+              }`}
             />
+
             <span
-              className={`h-[1.5px] w-[18px] bg-current transition-transform ${menuOpen ? "-translate-y-[5.5px] -rotate-45" : ""}`}
+              className={`h-[1.5px] w-[18px] bg-current transition-transform ${
+                menuOpen ? "-translate-y-[5.5px] -rotate-45" : ""
+              }`}
             />
           </span>
         </button>
       </div>
+
       {menuOpen && (
         <>
           <button
@@ -118,9 +139,11 @@ export function Header({ showBack = false }: HeaderProps) {
             onClick={() => setMenuOpen(false)}
             className="fixed inset-0 top-[51px] z-30 bg-[#10183a]/20 md:hidden"
           />
+
           <nav className="absolute left-0 right-0 top-[51px] z-40 border-t border-[var(--color-border)] bg-white px-4 py-2 shadow-lg md:hidden">
             {[
               ["Home", "/"],
+              ["Explore", "/events"],
               ["My Tickets", "/my-tickets"],
               ["Profile", "/profile"],
             ].map(([label, href]) => (
@@ -128,7 +151,11 @@ export function Header({ showBack = false }: HeaderProps) {
                 key={href}
                 href={href}
                 onClick={() => setMenuOpen(false)}
-                className={`block border-b border-[var(--color-border)] py-3 text-sm font-semibold last:border-0 ${isActive(href) ? "text-[var(--color-primary)]" : "text-[var(--color-foreground)]"}`}
+                className={`block border-b border-[var(--color-border)] py-3 text-sm font-semibold last:border-0 ${
+                  isActive(href)
+                    ? "text-[var(--color-primary)]"
+                    : "text-[var(--color-foreground)]"
+                }`}
               >
                 {label}
               </Link>

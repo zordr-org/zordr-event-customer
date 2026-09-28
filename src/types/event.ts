@@ -29,6 +29,8 @@ export interface EventSummary {
   endAt?: string;
   venue: Venue;
   priceFrom: number;
+  organizerName?: string;
+  attendingCount?: number;
 }
 
 export interface EventDetail extends Omit<EventSummary, "priceFrom"> {

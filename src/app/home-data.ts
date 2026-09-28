@@ -318,6 +318,314 @@ export const mockEventDetails: EventDetail[] = [
     terms:
       "Valid ID is required at entry. Outside food, drinks, and professional recording equipment are not permitted.",
   },
+  {
+    id: "event-5",
+    slug: "art-expo-2026",
+    name: "Art Expo 2026",
+    bannerUrl:
+      "https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&w=1200&q=90",
+    category: ["Art", "Design", "Innovation"],
+    startAt: "2026-10-25T10:00:00+05:30",
+    endAt: "2026-10-25T18:00:00+05:30",
+    venue: {
+      name: "Design Block, KITSW",
+      address: "KITSW Campus, Warangal, Telangana",
+      lat: 18.005,
+      lng: 79.552,
+      mapUrl: "https://maps.google.com/?q=KITSW+Design+Block",
+    },
+    organizer: {
+      name: "KITSW Art Club",
+      logoUrl:
+        "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=160&q=85",
+      verified: true,
+    },
+    description:
+      "Art Expo 2026 brings together student artists, designers, illustrators, and creative minds for a full day of exhibitions, live demonstrations, and creative experiences.",
+    gallery: [
+      "https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&w=1000&q=85",
+      "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1000&q=85",
+    ],
+    attendingCount: 96,
+    registrationDeadline: "2026-10-24T18:00:00+05:30",
+    ticketTypes: [
+      {
+        id: "art-expo-entry",
+        name: "Entry Pass",
+        description: "Access to the complete art exhibition",
+        price: 19900,
+        available: 200,
+        quantity: 0,
+        purchaseLimit: 5,
+      },
+    ],
+    faqs: [
+      {
+        question: "Can anyone attend the expo?",
+        answer:
+          "Yes. Students and visitors can attend with a valid entry pass.",
+      },
+    ],
+    terms:
+      "Entry passes are non-refundable. Please follow the exhibition venue guidelines.",
+  },
+
+  {
+    id: "event-6",
+    slug: "food-carnival-2026",
+    name: "Food Carnival 2026",
+    bannerUrl:
+      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1200&q=90",
+    category: ["Food", "Cultural", "Community"],
+    startAt: "2026-11-02T11:00:00+05:30",
+    endAt: "2026-11-02T20:00:00+05:30",
+    venue: {
+      name: "Central Lawn",
+      address: "KITSW Campus, Warangal, Telangana",
+      lat: 18.005,
+      lng: 79.552,
+      mapUrl: "https://maps.google.com/?q=KITSW+Central+Lawn",
+    },
+    organizer: {
+      name: "KITSW Food Society",
+      logoUrl:
+        "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=160&q=85",
+      verified: true,
+    },
+    description:
+      "A campus-wide food celebration featuring local favourites, student stalls, live cooking, games, and community activities.",
+    gallery: [
+      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1000&q=85",
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=85",
+    ],
+    attendingCount: 214,
+    registrationDeadline: "2026-11-02T10:30:00+05:30",
+    ticketTypes: [
+      {
+        id: "food-carnival-entry",
+        name: "Entry Pass",
+        description: "Entry to the food carnival",
+        price: 14900,
+        available: 500,
+        quantity: 0,
+        purchaseLimit: 10,
+      },
+    ],
+    faqs: [
+      {
+        question: "Does the ticket include food?",
+        answer:
+          "The entry ticket provides access to the carnival. Food purchases are made separately at participating stalls.",
+      },
+    ],
+    terms:
+      "Tickets are non-refundable. Food purchases are subject to individual stall availability.",
+  },
+
+  {
+    id: "event-7",
+    slug: "laugh-out-loud-2026",
+    name: "Laugh Out Loud",
+    bannerUrl:
+      "https://images.unsplash.com/photo-1585699324551-f6c309cedeca?auto=format&fit=crop&w=1200&q=90",
+    category: ["Comedy", "Entertainment", "Live"],
+    startAt: "2026-11-08T18:30:00+05:30",
+    endAt: "2026-11-08T21:00:00+05:30",
+    venue: {
+      name: "Main Auditorium",
+      address: "KITSW, Warangal, Telangana",
+      lat: 18.005,
+      lng: 79.552,
+      mapUrl: "https://maps.google.com/?q=KITSW+Main+Auditorium",
+    },
+    organizer: {
+      name: "Zordr Live",
+      logoUrl:
+        "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=160&q=85",
+      verified: true,
+    },
+    description:
+      "A live comedy evening featuring stand-up performances, campus stories, improvisation, and plenty of questionable life decisions.",
+    gallery: [
+      "https://images.unsplash.com/photo-1585699324551-f6c309cedeca?auto=format&fit=crop&w=1000&q=85",
+    ],
+    attendingCount: 173,
+    registrationDeadline: "2026-11-08T17:30:00+05:30",
+    ticketTypes: [
+      {
+        id: "laugh-entry",
+        name: "General Entry",
+        description: "Access to the complete comedy show",
+        price: 24900,
+        available: 300,
+        quantity: 0,
+        purchaseLimit: 5,
+      },
+    ],
+    faqs: [
+      {
+        question: "Is seating assigned?",
+        answer: "Seating is available on a first-come, first-served basis.",
+      },
+    ],
+    terms: "Tickets are non-refundable. Entry is subject to venue capacity.",
+  },
+
+  {
+    id: "event-8",
+    slug: "kitsw-sports-meet-2026",
+    name: "KITSW Sports Meet 2026",
+    bannerUrl:
+      "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=90",
+    category: ["Sports", "Competition", "College Event"],
+    startAt: "2026-11-15T08:00:00+05:30",
+    endAt: "2026-11-15T18:00:00+05:30",
+    venue: {
+      name: "KITSW Sports Ground",
+      address: "KITSW Campus, Warangal, Telangana",
+      lat: 18.005,
+      lng: 79.552,
+      mapUrl: "https://maps.google.com/?q=KITSW+Sports+Ground",
+    },
+    organizer: {
+      name: "KITSW Sports Club",
+      logoUrl:
+        "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=160&q=85",
+      verified: true,
+    },
+    description:
+      "A full-day sports competition featuring cricket, football, athletics, and other campus competitions.",
+    gallery: [
+      "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1000&q=85",
+      "https://images.unsplash.com/photo-1465447142348-e9952c393450?auto=format&fit=crop&w=1000&q=85",
+    ],
+    attendingCount: 305,
+    registrationDeadline: "2026-11-13T18:00:00+05:30",
+    ticketTypes: [
+      {
+        id: "sports-meet-entry",
+        name: "Spectator Pass",
+        description: "Access to the sports meet",
+        price: 9900,
+        available: 600,
+        quantity: 0,
+        purchaseLimit: 5,
+      },
+    ],
+    faqs: [
+      {
+        question: "Can students participate?",
+        answer:
+          "Students can participate by registering for the individual competitions announced by the Sports Club.",
+      },
+    ],
+    terms:
+      "Participants must follow the rules of their respective competitions and venue safety guidelines.",
+  },
+
+  {
+    id: "event-9",
+    slug: "kitsw-literary-fest-2026",
+    name: "KITSW Literary Fest 2026",
+    bannerUrl:
+      "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=90",
+    category: ["Literary", "Books", "Community"],
+    startAt: "2026-11-20T10:00:00+05:30",
+    endAt: "2026-11-20T17:00:00+05:30",
+    venue: {
+      name: "Central Seminar Hall",
+      address: "KITSW Campus, Warangal, Telangana",
+      lat: 18.005,
+      lng: 79.552,
+      mapUrl: "https://maps.google.com/?q=KITSW+Central+Seminar+Hall",
+    },
+    organizer: {
+      name: "KITSW Literary Club",
+      logoUrl:
+        "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=160&q=85",
+      verified: true,
+    },
+    description:
+      "A celebration of books, writing, poetry, debates, storytelling, and conversations with fellow readers and creators.",
+    gallery: [
+      "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1000&q=85",
+      "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1000&q=85",
+    ],
+    attendingCount: 84,
+    registrationDeadline: "2026-11-19T18:00:00+05:30",
+    ticketTypes: [
+      {
+        id: "literary-fest-entry",
+        name: "Entry Pass",
+        description: "Access to literary fest sessions",
+        price: 9900,
+        available: 250,
+        quantity: 0,
+        purchaseLimit: 5,
+      },
+    ],
+    faqs: [
+      {
+        question: "Can I participate in poetry or debates?",
+        answer:
+          "Participation opportunities will be available through the activities announced by the Literary Club.",
+      },
+    ],
+    terms:
+      "Participants must follow the guidelines provided by the Literary Club for individual activities.",
+  },
+
+  {
+    id: "event-10",
+    slug: "startup-showcase-2026",
+    name: "Startup Showcase 2026",
+    bannerUrl:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=90",
+    category: ["Business", "Innovation", "Networking"],
+    startAt: "2026-11-28T10:00:00+05:30",
+    endAt: "2026-11-28T17:00:00+05:30",
+    venue: {
+      name: "Innovation Hub",
+      address: "Warangal, Telangana",
+      lat: 17.9784,
+      lng: 79.5941,
+      mapUrl: "https://maps.google.com/?q=Warangal+Innovation+Hub",
+    },
+    organizer: {
+      name: "KITSW Entrepreneurship Cell",
+      logoUrl:
+        "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=160&q=85",
+      verified: true,
+    },
+    description:
+      "A showcase of student startups, product ideas, founders, prototypes, and conversations around building businesses from the campus.",
+    gallery: [
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1000&q=85",
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1000&q=85",
+    ],
+    attendingCount: 142,
+    registrationDeadline: "2026-11-27T18:00:00+05:30",
+    ticketTypes: [
+      {
+        id: "startup-showcase-entry",
+        name: "Entry Pass",
+        description: "Access to startup showcases and networking sessions",
+        price: 19900,
+        available: 250,
+        quantity: 0,
+        purchaseLimit: 5,
+      },
+    ],
+    faqs: [
+      {
+        question: "Can students showcase their startup?",
+        answer:
+          "Student founders can apply through the Entrepreneurship Cell's showcase registration process.",
+      },
+    ],
+    terms:
+      "Showcase participation is subject to organizer approval and available exhibition space.",
+  },
 ];
 
 export const mockEvents: EventSummary[] = mockEventDetails.map((event) => ({
@@ -330,4 +638,6 @@ export const mockEvents: EventSummary[] = mockEventDetails.map((event) => ({
   endAt: event.endAt,
   venue: event.venue,
   priceFrom: Math.min(...event.ticketTypes.map((ticket) => ticket.price)),
+  organizerName: event.organizer.name,
+  attendingCount: event.attendingCount,
 }));

@@ -53,7 +53,7 @@ export default function Home() {
           <SectionHeader
             title="Browse by Category"
             actionLabel="View All →"
-            actionHref="/categories"
+            actionHref="/events"
           />
 
           <div className="mt-2.5">
