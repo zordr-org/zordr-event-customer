@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { EventDetail } from "@/types/event";
 import {
   IconCalendar,
@@ -15,7 +18,55 @@ interface EventMetaProps {
   doorTime: string;
   onPreviewOrganizer: () => void;
 }
+function MarqueeText({
+  children,
+  className,
+}: {
+  children: string;
+  className?: string;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const [shift, setShift] = useState(0);
 
+  useEffect(() => {
+    const container = containerRef.current;
+    const text = textRef.current;
+
+    if (!container || !text) return;
+
+    const measure = () => {
+      const overflow = text.scrollWidth - container.clientWidth;
+      setShift(overflow > 1 ? overflow : 0);
+    };
+
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(container);
+
+    return () => observer.disconnect();
+  }, [children]);
+
+  return (
+    <div ref={containerRef} className="overflow-hidden">
+      <p
+        ref={textRef}
+        className={`whitespace-nowrap ${className ?? ""}`}
+        style={
+          shift
+            ? {
+                animation: "info-text-scroll 7s ease-in-out infinite",
+                ["--marquee-shift" as string]: `-${shift}px`,
+              }
+            : undefined
+        }
+      >
+        {children}
+      </p>
+    </div>
+  );
+}
 function InfoCell({
   icon,
   label,
@@ -34,13 +85,13 @@ function InfoCell({
       <span className="mt-0.5 shrink-0 text-[#15234b]">{icon}</span>
       <div className="min-w-0">
         <p className="text-[10px] font-medium text-[#596276]">{label}</p>
-        <p className="truncate text-[11px] font-semibold leading-[15px] text-[#17203b]">
+        <MarqueeText className="text-[11px] font-semibold leading-[15px] text-[#17203b]">
           {value}
-        </p>
+        </MarqueeText>
         {action ? (
-          <p className="truncate text-[10px] font-semibold text-[#1654bd]">
+          <MarqueeText className="truncate text-[10px] font-semibold text-[#1654bd]">
             {action}
-          </p>
+          </MarqueeText>
         ) : (
           <p className="text-[10px] leading-[14px] text-[#65718a]">
             {subvalue}
@@ -62,6 +113,17 @@ export function EventMeta({
 }: EventMetaProps) {
   return (
     <>
+      <style>{`
+        @keyframes info-text-scroll {
+          0%, 20% {
+            transform: translateX(0);
+          }
+          80%, 100% {
+            transform: translateX(var(--marquee-shift));
+          }
+        }
+      `}
+      </style>
       <div className="mt-3 flex items-center justify-between">
         <h2 className="text-[19px] font-extrabold tracking-[-.4px] text-[#151d39]">
           {event.name}

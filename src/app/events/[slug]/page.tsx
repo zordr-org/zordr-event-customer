@@ -240,9 +240,13 @@ function EventDetails() {
   const [expandedSection, setExpandedSection] = useState<
     "faq" | "terms" | null
   >(null);
-  const [countdown, setCountdown] = useState<Countdown>(() =>
-    getCountdown(event.registrationDeadline ?? event.startAt),
-  );
+  const [countdown, setCountdown] = useState<Countdown>({
+  days: 0,
+  hours: 0,
+  minutes: 0,
+  seconds: 0,
+  });
+  const [countdownReady, setCountdownReady] = useState(false);
   const [preview, setPreview] = useState<{ src: string; alt: string } | null>(
     null,
   );
@@ -251,6 +255,11 @@ function EventDetails() {
       setIsLiked(isEventLiked(event.id));
       setIsRegistered(isEventRegistered(event.id));
     }, 0);
+    const nextCountdown = getCountdown(
+    event.registrationDeadline ?? event.startAt,
+    );
+    setCountdown(nextCountdown);
+    setCountdownReady(true);
     const interval = window.setInterval(() => {
       setCountdown(getCountdown(event.registrationDeadline ?? event.startAt));
     }, 1000);
@@ -320,7 +329,7 @@ function EventDetails() {
           }
         />
 
-        <CountdownTimer {...countdown} />
+        {countdownReady && <CountdownTimer {...countdown} />}
 
         <EventDescription
           description={event.description}
@@ -381,11 +390,11 @@ function EventDetails() {
       </div>
 
       <div className="fixed bottom-0 left-1/2 z-20 flex h-[64px] w-full max-w-[480px] -translate-x-1/2 items-center justify-between border-t border-[#e5e9ee] bg-white px-4 shadow-[0_-4px_16px_rgba(20,31,55,.09)]">
-        <div>
+        <div className="w-[90px] shrink-0">
           <p className="text-[16px] font-bold leading-5 text-[#18203b]">
-            ₹{total.toLocaleString("en-IN")}
+            ₹{(total/100).toLocaleString("en-IN")}
           </p>
-          <p className="text-[9px] text-[#65718a]">
+          <p  className="whitespace-nowrap text-[11px] font-medium text-[#4f5b73]">
             {selectedCount} ticket{selectedCount === 1 ? "" : "s"} selected
           </p>
         </div>

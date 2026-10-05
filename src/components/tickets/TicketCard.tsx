@@ -25,7 +25,12 @@ export function TicketCard({
 }: TicketCardProps) {
   if (onCopyOrderId) {
     return (
-      <article className="overflow-hidden rounded-[10px] border border-[#e1e6ec] bg-white">
+      <article className="relative overflow-hidden rounded-[10px] border border-[#e1e6ec] bg-white">
+        <Link
+          href={`/my-tickets/${ticket.id}`}
+          aria-label={`Open ${ticket.eventName}`}
+          className="absolute inset-0 z-10"
+        />
         <div className="flex flex-col gap-3 p-3 sm:flex-row">
           <ResilientImage
             src={ticket.eventBannerUrl}
@@ -78,9 +83,13 @@ export function TicketCard({
               <button
                 type="button"
                 aria-label="Copy order ID"
-                onClick={() => onCopyOrderId(ticket.orderId)}
-                className="font-bold"
-              >
+                onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                onCopyOrderId(ticket.orderId);
+                }}
+                className="relative z-20 font-bold"
+                >
                 ▣
               </button>
             </p>
@@ -91,13 +100,9 @@ export function TicketCard({
               ₹{(ticket.totalPaid / 100).toLocaleString("en-IN")}
             </p>
           </div>
-          <Link
-            href={`/my-tickets/${ticket.id}`}
-            aria-label={`Open ${ticket.eventName}`}
-            className="text-[#17203b]"
-          >
+          <span className="relative z-20 text-[#17203b]" aria-hidden="true">
             <IconChevronRight size={18} />
-          </Link>
+          </span>
         </div>
       </article>
     );
