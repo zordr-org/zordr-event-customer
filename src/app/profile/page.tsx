@@ -25,6 +25,7 @@ export default function ProfilePage() {
   const [user, setUser] = useState(mockUser);
   const [editing, setEditing] = useState(false);
   const [notifications, setNotifications] = useState(true);
+  const [expandedSupport, setExpandedSupport] = useState<string | null>(null);
   useEffect(() => {
     const storedUser = getMockUser();
     const storedNotifications =
@@ -89,25 +90,66 @@ export default function ProfilePage() {
         eventIds={user.attendedEventIds ?? []}
       />
       <ProfileSection title="Account" compact>
-        <ProfileMenuItem
-          compact
-          icon={<IconUser size={20} />}
-          label="Personal Information"
-          description="Name, email, phone, college details"
-        />
-        <ProfileMenuItem
-          compact
-          icon={<IconLock2 size={20} />}
-          label="Change Password"
-          description="Update your password"
-        />
-        <ProfileMenuItem
-          compact
-          icon={<span className="text-xl">↗</span>}
-          label="Linked Accounts"
-          description="Manage connected accounts"
-        />
-      </ProfileSection>
+  <Link
+    href="/profile/account/personal-information"
+    className="flex min-h-[54px] w-full items-center gap-3 border-b border-[#edf0f2] text-left"
+  >
+    <span className="w-6 text-[#101d45]">
+      <IconUser size={20} />
+    </span>
+
+    <span className="flex-1">
+      <b className="block text-[13px] text-[#17203b]">
+        Personal Information
+      </b>
+      <span className="text-[11px] text-[#65718a]">
+        Name, email, phone, college details
+      </span>
+    </span>
+
+    <IconChevronRight size={17} className="text-[#17203b]" />
+  </Link>
+
+  <Link
+    href="/profile/account/change-password"
+    className="flex min-h-[54px] w-full items-center gap-3 border-b border-[#edf0f2] text-left"
+  >
+    <span className="w-6 text-[#101d45]">
+      <IconLock2 size={20} />
+    </span>
+
+    <span className="flex-1">
+      <b className="block text-[13px] text-[#17203b]">
+        Change Password
+      </b>
+      <span className="text-[11px] text-[#65718a]">
+        Update your password
+      </span>
+    </span>
+
+    <IconChevronRight size={17} className="text-[#17203b]" />
+  </Link>
+
+  <Link
+    href="/profile/account/linked-accounts"
+    className="flex min-h-[54px] w-full items-center gap-3 text-left"
+  >
+    <span className="w-6 text-[#101d45]">
+      <span className="text-xl">↗</span>
+    </span>
+
+    <span className="flex-1">
+      <b className="block text-[13px] text-[#17203b]">
+        Linked Accounts
+      </b>
+      <span className="text-[11px] text-[#65718a]">
+        Manage connected accounts
+      </span>
+    </span>
+
+    <IconChevronRight size={17} className="text-[#17203b]" />
+  </Link>
+</ProfileSection>
       <ProfileSection title="Preferences" compact>
         <ProfileMenuItem
           compact
@@ -135,39 +177,162 @@ export default function ProfilePage() {
             </button>
           }
         />
-        <ProfileMenuItem
-          compact
-          icon={<IconHeart size={20} />}
-          label="Interests"
-          description="Events you're interested in"
-        />
-        <ProfileMenuItem
-          compact
-          icon={<span className="text-xl">◎</span>}
-          label="Language"
-          description="App language and communication"
-        />
+        <Link
+          href="/profile/preferences/interests"
+          className="flex min-h-[54px] w-full items-center gap-3 border-b border-[#edf0f2] text-left"
+        >
+          <span className="w-6 text-[#101d45]">
+            <IconHeart size={20} />
+          </span>
+
+          <span className="flex-1">
+            <b className="block text-[13px] text-[#17203b]">
+              Interests
+            </b>
+            <span className="text-[11px] text-[#65718a]">
+              Events you're interested in
+            </span>
+          </span>
+
+          <IconChevronRight size={17} className="text-[#17203b]" />
+        </Link>
+        <Link
+          href="/profile/preferences/language"
+          className="flex min-h-[54px] w-full items-center gap-3 text-left"
+        >
+          <span className="w-6 text-[#101d45]">
+            <span className="text-xl">◎</span>
+          </span>
+
+          <span className="flex-1">
+            <b className="block text-[13px] text-[#17203b]">
+              Language
+            </b>
+            <span className="text-[11px] text-[#65718a]">
+              App language and communication
+            </span>
+          </span>
+          <IconChevronRight size={17} className="text-[#17203b]" />
+        </Link>
       </ProfileSection>
       <ProfileSection title="Support" compact>
-        <ProfileMenuItem
-          compact
-          icon={<IconQuestionCircle size={20} />}
-          label="Help & Support"
-          description="Get help or contact us"
-        />
-        <ProfileMenuItem
-          compact
-          icon={<IconFileText size={20} />}
-          label="Terms & Conditions"
-          description="Read our terms and policies"
-        />
-        <ProfileMenuItem
-          compact
-          icon={<IconShield size={20} />}
-          label="Privacy Policy"
-          description="Learn how we protect your data"
-        />
-      </ProfileSection>
+  <button
+    type="button"
+    onClick={() =>
+      setExpandedSupport((current) =>
+        current === "help" ? null : "help",
+      )
+    }
+    className="w-full border-b border-[#edf0f2] text-left"
+  >
+    <div className="flex min-h-[48px] w-full items-center gap-3">
+      <span className="w-6 text-[#101d45]">
+        <IconQuestionCircle size={20} />
+      </span>
+
+      <span className="flex-1">
+        <b className="block text-[13px] text-[#17203b]">
+          Help & Support
+        </b>
+        <span className="text-[11px] text-[#65718a]">
+          Get help or contact us
+        </span>
+      </span>
+
+      <IconChevronRight
+        size={17}
+        className={`text-[#17203b] transition-transform ${
+          expandedSupport === "help" ? "rotate-90" : ""
+        }`}
+      />
+    </div>
+
+    {expandedSupport === "help" && (
+      <p className="ml-9 mr-2 mt-1 rounded-md bg-[#f7fafc] px-3 py-2 text-[11px] leading-4 text-[#65718a]">
+        Need help with bookings, tickets, payments, or your account?
+        Contact ZORDR support for assistance.
+      </p>
+    )}
+  </button>
+
+  <button
+    type="button"
+    onClick={() =>
+      setExpandedSupport((current) =>
+        current === "terms" ? null : "terms",
+      )
+    }
+    className="w-full border-b border-[#edf0f2] text-left"
+  >
+    <div className="flex min-h-[48px] w-full items-center gap-3">
+      <span className="w-6 text-[#101d45]">
+        <IconFileText size={20} />
+      </span>
+
+      <span className="flex-1">
+        <b className="block text-[13px] text-[#17203b]">
+          Terms & Conditions
+        </b>
+        <span className="text-[11px] text-[#65718a]">
+          Read our terms and policies
+        </span>
+      </span>
+
+      <IconChevronRight
+        size={17}
+        className={`text-[#17203b] transition-transform ${
+          expandedSupport === "terms" ? "rotate-90" : ""
+        }`}
+      />
+    </div>
+
+    {expandedSupport === "terms" && (
+      <p className="ml-9 mr-2 mt-1 rounded-md bg-[#f7fafc] px-3 py-2 text-[11px] leading-4 text-[#65718a]">
+        These terms explain the rules for using ZORDR, event bookings,
+        tickets, and payments.
+      </p>
+    )}
+  </button>
+
+  <button
+    type="button"
+    onClick={() =>
+      setExpandedSupport((current) =>
+        current === "privacy" ? null : "privacy",
+      )
+    }
+    className="w-full text-left"
+  >
+    <div className="flex min-h-[48px] w-full items-center gap-3">
+      <span className="w-6 text-[#101d45]">
+        <IconShield size={20} />
+      </span>
+
+      <span className="flex-1">
+        <b className="block text-[13px] text-[#17203b]">
+          Privacy Policy
+        </b>
+        <span className="text-[11px] text-[#65718a]">
+          Learn how we protect your data
+        </span>
+      </span>
+
+      <IconChevronRight
+        size={17}
+        className={`text-[#17203b] transition-transform ${
+          expandedSupport === "privacy" ? "rotate-90" : ""
+        }`}
+      />
+    </div>
+
+    {expandedSupport === "privacy" && (
+      <p className="ml-9 mr-2 mt-1 rounded-md bg-[#f7fafc] px-3 py-2 text-[11px] leading-4 text-[#65718a]">
+        Your personal information is used to provide bookings, account
+        services, and event updates.
+      </p>
+    )}
+  </button>
+</ProfileSection>
       <div className="mx-4 mt-4 sm:mx-6">
         <button
           type="button"

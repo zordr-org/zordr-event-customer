@@ -81,6 +81,7 @@ export default function CheckoutSuccessPage() {
       />
       <ConfirmationActions
         checkout
+        viewHref={`/my-tickets/${orderId}-${primaryItem.ticket.id}`}
         onDownloadTicket={() => window.print()}
         onShareEvent={() => void handleShare()}
       />

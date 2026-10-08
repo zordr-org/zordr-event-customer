@@ -20,17 +20,18 @@ export function ProfileMenuItem({
   icon,
   trailing,
 }: ProfileMenuItemProps) {
-  if (compact) {
+  if (compact) { 
     return (
-      <div className="flex min-h-[54px] w-full items-center gap-3 border-b border-[#edf0f2] text-left last:border-0">
-        <span className="w-6 text-[#101d45]">{icon}</span>
-        <span className="flex-1">
-          <b className="block text-[13px] text-[#17203b]">{label}</b>
-          <span className="text-[11px] text-[#65718a]">{description}</span>
-        </span>
-        {trailing ?? <IconChevronRight size={17} className="text-[#17203b]" />}
-      </div>
+    <div className="flex min-h-[54px] w-full items-center gap-3 border-b border-[#edf0f2] text-left last:border-0">
+      <span className="w-6 text-[#101d45]">{icon}</span>
+      <span className="flex-1">
+        <b className="block text-[13px] text-[#17203b]">{label}</b>
+        <span className="text-[11px] text-[#65718a]">{description}</span>
+      </span>
+      {trailing ?? <IconChevronRight size={17} className="text-[#17203b]" />}
+    </div>
     );
+
   }
 
   return (

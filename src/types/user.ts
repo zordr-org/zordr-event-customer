@@ -13,4 +13,6 @@ export interface UserProfile {
   };
   likedEventIds?: string[];
   attendedEventIds?: string[];
+  interests?: string[];
+  language?: string;
 }

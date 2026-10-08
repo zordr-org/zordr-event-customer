@@ -130,6 +130,54 @@ export function loginMockUser(email: string, password: string) {
   saveMockUser(user.profile);
   return user.profile;
 }
+export type ChangePasswordResult =
+  | "success"
+  | "current-password-invalid"
+  | "weak-password"
+  | "user-not-found";
+
+export function changeMockPassword(
+  currentPassword: string,
+  newPassword: string,
+): ChangePasswordResult {
+  const user = getMockUser();
+  const users = getAuthUsers();
+
+  const userIndex = users.findIndex(
+    (candidate) =>
+      candidate.email.trim().toLowerCase() === user.email.trim().toLowerCase(),
+  );
+
+  if (userIndex === -1) {
+    return "user-not-found";
+  }
+
+  if (users[userIndex].password !== currentPassword) {
+    return "current-password-invalid";
+  }
+
+  const strongPassword =
+    newPassword.length >= 8 &&
+    /[A-Z]/.test(newPassword) &&
+    /[a-z]/.test(newPassword) &&
+    /\d/.test(newPassword) &&
+    /[^A-Za-z0-9]/.test(newPassword);
+
+  if (!strongPassword) {
+    return "weak-password";
+  }
+
+  const updatedUsers = [...users];
+
+  updatedUsers[userIndex] = {
+    ...updatedUsers[userIndex],
+    password: newPassword,
+  };
+
+  write(authUsersKey, updatedUsers);
+
+  return "success";
+}
 
 export function registerMockUser(input: {
   name: string;

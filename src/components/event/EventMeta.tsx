@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { EventDetail } from "@/types/event";
 import {
@@ -161,9 +161,12 @@ export function EventMeta({
           </button>
           <div>
             <p className="text-[9px] text-[#69738b]">Organized by</p>
-            <p className="text-[11px] font-semibold text-[#18203d]">
+            <Link
+              href={`/events?q=${encodeURIComponent(event.organizer.name)}`}
+              className="text-[11px] font-semibold text-[#18203d]"
+              >
               {event.organizer.name}
-            </p>
+            </Link>
           </div>
         </div>
         <div className="flex items-center gap-1 text-[10px] text-[#1f2945]">
@@ -180,13 +183,18 @@ export function EventMeta({
         </div>
       </div>
       <div className="mt-2 flex gap-2">
-        {event.category.map((tag, index) => (
-          <span
+         {event.category.map((tag, index) => (
+          <Link
             key={tag}
-            className={`rounded-md px-3 py-1 text-[10px] font-medium ${index === 0 ? "bg-[#f6ebff] text-[#7d2fd3]" : index === 1 ? "bg-[#edf4ff] text-[#3365c8]" : "bg-[#edf4ff] text-[#3365c8]"}`}
-          >
+            href={`/events?category=${encodeURIComponent(tag)}`}
+            className={`rounded-md px-3 py-1 text-[10px] font-medium ${
+            index === 0
+            ? "bg-[#f6ebff] text-[#7d2fd3]"
+            : "bg-[#edf4ff] text-[#3365c8]"
+            }`}
+            >
             {tag}
-          </span>
+          </Link>
         ))}
       </div>
       <div className="mt-3 flex rounded-[9px] border border-[#e5e9ee] px-3 py-3">
