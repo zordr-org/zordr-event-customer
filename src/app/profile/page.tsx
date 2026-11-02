@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { mockEventDetails } from "@/app/home-data";
 import { Header } from "@/components/layout/Header";
@@ -8,7 +9,7 @@ import { ProfileHeader } from "@/components/profile/ProfileHeader";
 import { ProfileMenuItem } from "@/components/profile/ProfileMenuItem";
 import { ProfileSection } from "@/components/profile/ProfileSection";
 import { ProfileStats } from "@/components/profile/ProfileStats";
-import { getMockUser, saveMockUser } from "@/lib/mock-api";
+import { getMockUser, logoutMockUser, saveMockUser } from "@/lib/mock-api";
 import { mockUser } from "@/lib/mock-account";
 import {
   IconChevronRight,
@@ -22,10 +23,27 @@ import {
 } from "@/components/ui/Icons";
 
 export default function ProfilePage() {
+  const router = useRouter();
   const [user, setUser] = useState(mockUser);
   const [editing, setEditing] = useState(false);
   const [notifications, setNotifications] = useState(true);
   const [expandedSupport, setExpandedSupport] = useState<string | null>(null);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+
+  useEffect(() => {
+    if (!showLogoutConfirm) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setShowLogoutConfirm(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [showLogoutConfirm]);
+
+  const handleLogout = () => {
+    logoutMockUser();
+    setShowLogoutConfirm(false);
+    router.push("/login");
+  };
   useEffect(() => {
     const storedUser = getMockUser();
     const storedNotifications =
@@ -333,14 +351,57 @@ export default function ProfilePage() {
     )}
   </button>
 </ProfileSection>
-      <div className="mx-4 mt-4 sm:mx-6">
+            <div className="mx-4 mt-4 sm:mx-6">
         <button
           type="button"
-          className="h-11 w-full rounded-lg border border-[#f0b8c0] bg-white text-[13px] font-semibold text-[#c53549]"
+          onClick={() => setShowLogoutConfirm(true)}
+          className="h-11 w-full rounded-lg border border-[#f0b8c0] bg-white text-[13px] font-semibold text-[#c53549] transition-colors hover:bg-[#fff5f6] active:bg-[#fdecee]"
         >
           Log Out
         </button>
       </div>
+
+      {/* Confirmation Dialog */}
+      {showLogoutConfirm && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="logout-dialog-title"
+          onClick={() => setShowLogoutConfirm(false)}
+        >
+          <div
+            className="w-full max-w-[340px] rounded-2xl border border-[#e1e6ec] bg-white p-5 text-center shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3
+              id="logout-dialog-title"
+              className="text-[17px] font-bold text-[#10183a]"
+            >
+              Confirm Logout
+            </h3>
+            <p className="mt-2 text-[13px] text-[#5d6a85]">
+              Are you sure you want to log out?
+            </p>
+            <div className="mt-5 flex gap-3">
+              <button
+                type="button"
+                onClick={() => setShowLogoutConfirm(false)}
+                className="h-10 flex-1 rounded-lg border border-[#dfe5eb] text-[13px] font-semibold text-[#5d6a85] transition-colors hover:bg-[#f5f7fa]"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="h-10 flex-1 rounded-lg bg-[#c53549] text-[13px] font-semibold text-white transition-colors hover:bg-[#af2a3c]"
+              >
+                Log Out
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

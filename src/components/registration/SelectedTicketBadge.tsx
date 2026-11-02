@@ -18,7 +18,7 @@ export function SelectedTicketBadge({
   return (
     <div className="flex items-center justify-between rounded-[10px] bg-[#edfcf5] px-3 py-3">
       <div>
-        <p className="text-[14px] font-bold text-[#17203b]">
+        <p suppressHydrationWarning className="text-[14px] font-bold text-[#17203b]">
           {quantity} Tickets Selected
         </p>
         <p className="text-[11px] text-[#5f6c85]">{ticketName}</p>
@@ -26,7 +26,7 @@ export function SelectedTicketBadge({
 
       <div className="flex items-center gap-3">
         <div className="text-right">
-          <p className="text-[15px] font-bold text-[#17203b]">
+          <p suppressHydrationWarning className="text-[15px] font-bold text-[#17203b]">
             {formatRupees(totalPrice)}
           </p>
           <p className="text-[10px] text-[#65718a]">Total (incl. taxes)</p>

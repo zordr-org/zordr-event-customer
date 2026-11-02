@@ -412,7 +412,13 @@ function EventDetails() {
             );
             router.push(`/checkout/${checkout.orderId}/tickets`);
           }}
-          className={`flex h-[34px] min-w-0 flex-1 items-center justify-center rounded-[7px] px-3 text-[12px] font-semibold text-white ${isRegistered ? "bg-[#2164b8]" : selectedCount ? "bg-[#08ad6a]" : "bg-[#0aae6b]"}`}
+            className={`flex h-[34px] min-w-0 flex-1 items-center justify-center rounded-[7px] px-3 text-[12px] font-semibold text-white transition-colors ${
+            isRegistered
+              ? "bg-[#2164b8] hover:bg-[#1a5298]"
+              : selectedCount > 0
+                ? "bg-[#08ad6a] hover:bg-[#07995e] cursor-pointer"
+                : "bg-slate-300 text-slate-500 cursor-not-allowed"
+          }`}
         >
           {isRegistered ? "View My Tickets" : "Continue"}{" "}
           <span className="ml-1 text-[16px]">→</span>

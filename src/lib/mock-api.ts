@@ -24,6 +24,8 @@ export interface MockCheckout {
   registration: MockRegistration;
   paymentMethod: string;
   paid: boolean;
+  registrationType?: "individual" | "group";
+  groupMembers?: MockRegistration[];
 }
 
 export interface MockAuthUser {
@@ -129,6 +131,13 @@ export function loginMockUser(email: string, password: string) {
   if (!user) return null;
   saveMockUser(user.profile);
   return user.profile;
+}
+
+export function logoutMockUser() {
+  if (typeof window !== "undefined") {
+    window.sessionStorage.removeItem("zordr-auth-user");
+    window.localStorage.removeItem("zordr-mock-user");
+  }
 }
 export type ChangePasswordResult =
   | "success"

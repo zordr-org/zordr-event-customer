@@ -15,10 +15,15 @@ export type RegistrationForm = MockRegistration;
 interface CheckoutContextValue {
   quantities: Record<string, number>;
   registration: RegistrationForm;
+  registrationType?: "individual" | "group";
+  groupMembers?: RegistrationForm[];
   paymentMethod: string;
   paid: boolean;
   setQuantity: (ticketId: string, quantity: number) => void;
   setRegistrationField: (field: keyof RegistrationForm, value: string) => void;
+  setFullRegistration: (registration: RegistrationForm) => void;
+  setRegistrationType: (type: "individual" | "group") => void;
+  setGroupMembers: (members: RegistrationForm[]) => void;
   setPaymentMethod: (method: string) => void;
   markPaid: () => void;
   resetCheckout: () => void;
@@ -30,6 +35,8 @@ interface CheckoutState {
   eventId: string;
   quantities: Record<string, number>;
   registration: RegistrationForm;
+  registrationType?: "individual" | "group";
+  groupMembers?: RegistrationForm[];
   paymentMethod: string;
   paid: boolean;
 }
@@ -49,6 +56,8 @@ const initialState: CheckoutState = {
   eventId: "event-1",
   quantities: {},
   registration: initialRegistration,
+  registrationType: "individual",
+  groupMembers: [],
   paymentMethod: "upi",
   paid: false,
 };
@@ -97,6 +106,12 @@ export function CheckoutProvider({ children }: { children: React.ReactNode }) {
           ...current,
           registration: { ...current.registration, [field]: value },
         })),
+      setFullRegistration: (registration) =>
+        setState((current) => ({ ...current, registration })),
+      setRegistrationType: (registrationType) =>
+        setState((current) => ({ ...current, registrationType })),
+      setGroupMembers: (groupMembers) =>
+        setState((current) => ({ ...current, groupMembers })),
       setPaymentMethod: (paymentMethod) =>
         setState((current) => ({ ...current, paymentMethod })),
       markPaid: () => setState((current) => ({ ...current, paid: true })),
